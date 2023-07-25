@@ -1,0 +1,21 @@
+load("//:rules.bzl", "my_toolchain", "rule_using_toolchain")
+
+toolchain_type(
+    name = "toolchain_type",
+    visibility = ["//visibility:public"],
+)
+
+my_toolchain(
+    name = "my_toolchain",
+    bin = "echo_hello_to_argv0.sh",
+)
+
+toolchain(
+    name = "toolchain",
+    toolchain = ":my_toolchain",
+    toolchain_type = ":toolchain_type",
+)
+
+rule_using_toolchain(
+    name = "rule",
+)
